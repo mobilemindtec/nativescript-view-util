@@ -13,11 +13,28 @@ exports.addViewIcon = function(view, position, iconName){
       view.android.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
     }else if(position == 'right'){
       view.android.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
+    }else if(position == 'top'){
+      view.android.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
     }
 
     // setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
 
 }
+
+exports.buttonRoundedAll = function(view, hexaColor, raduis){
+  buttonRounded(view, hexaColor, raduis, raduis, raduis, raduis)
+}
+
+function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, bottom_left){    
+  var shape =  new android.graphics.drawable.GradientDrawable();
+
+  shape.setCornerRadii([top_left, top_left, top_right, top_right, bottom_right, bottom_right, bottom_left, bottom_left]);  
+  var color = android.graphics.Color.parseColor(hexaColor)  
+  shape.setColor(color);
+  view.android.setBackground(shape)
+}
+
+exports.buttonRounded = buttonRounded;
 
 exports.addTextChangeListener = function(textView, textChangeCallback){
 
@@ -100,12 +117,17 @@ exports.progressOpen = function(args){
   } else if(application.android){
     nativeView = new android.widget.ProgressBar(application.android.currentContext);
     nativeView.setIndeterminate(true);
+
+    if(args.color) {
+      nativeView.setProgressBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor(args.color)))
+      nativeView.setProgressBackgroundTintMode(android.graphics.PorterDuff.Mode.XOR)
+    }    
   }
   
   var params = {
     title: args.title,
     message: args.message,    
-    nativeView: nativeView
+    nativeView: nativeView 
   }
 
   if(args.cancelable)
@@ -130,3 +152,80 @@ exports.progressClose = function(){
 exports.capitalize = function(text) {
   return text.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 };
+
+
+exports.getSdCard = function(){
+  /*
+    // Final set of paths
+    var rv = []
+    // Primary physical SD-CARD (not emulated)
+    var rawExternalStorage =  java.lang.System.getenv("EXTERNAL_STORAGE")
+    // All Secondary SD-CARDs (all exclude primary) separated by ":"
+    var rawSecondaryStoragesStr =    java.lang.System.getenv("SECONDARY_STORAGE")
+    // Primary emulated SD-CARD
+    var rawEmulatedStorageTarget =   java.lang.System.getenv("EMULATED_STORAGE_TARGET")
+
+    if(android.text.TextUtils.isEmpty(rawEmulatedStorageTarget))
+    {
+        // Device has physical external storage; use plain paths.
+        if(android.text.TextUtils.isEmpty(rawExternalStorage)){
+            // EXTERNAL_STORAGE undefined; falling back to default.
+            rv.push("/storage/sdcard0");
+        }else{
+            rv.push(rawExternalStorage);
+        }
+    }else{
+        // Device has emulated storage; external storage paths should have
+        // userId burned into them.
+        var rawUserId;
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR1){
+            rawUserId = ""
+        }else{
+            var path = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
+            var folders = DIR_SEPORATOR.split(path)
+            var lastFolder = folders[folders.length - 1]
+            var isDigit = false
+            try{
+                java.lang.Integer.valueOf(lastFolder)
+                isDigit = true
+            }catch(ignored){
+            }
+
+            rawUserId = isDigit ? lastFolder : ""
+        }
+        // /storage/emulated/0[1,2,...]
+        if(android.text.TextUtils.isEmpty(rawUserId)){
+            rv.push(rawEmulatedStorageTarget);
+        }else{
+            rv.push(rawEmulatedStorageTarget + java.io.File.separator + rawUserId);
+        }
+    }
+
+    // Add all secondary storages
+    if(!android.text.TextUtils.isEmpty(rawSecondaryStoragesStr))
+    {
+        // All Secondary SD-CARDs splited into array
+        var rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
+        for(var i = 0; i < rawSecondaryStorages.length; i++)
+          rv.push(rawSecondaryStorages[i])
+    }
+
+    return rv
+    */
+}
+
+
+exports.getExtraKey = function(key){
+  var activity = application.android.foregroundActivity || application.android.startActivity  
+
+  if(activity.getIntent() && activity.getIntent().getExtras()){
+
+    var extra =  activity.getIntent().getExtras()
+
+    if(extra.containsKey(key)){
+      return extra.get(key)
+    }
+  }
+
+  return undefined    
+}
