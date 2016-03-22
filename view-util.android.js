@@ -1,7 +1,10 @@
 var application = require("application");
 var frameModule = require("ui/frame");
+var dialogsModule = require("nativescript-dialog");
+var platform = require("platform");
+var color = require("color");
+
 var keyboardIsOpened
-var dialogsModule = require("nativescript-dialog")
 
 exports.addViewIcon = function(view, position, iconName){
     
@@ -118,16 +121,19 @@ exports.progressOpen = function(args){
     nativeView = new android.widget.ProgressBar(application.android.currentContext);
     nativeView.setIndeterminate(true);
 
-    if(args.color) {
-      nativeView.setProgressBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor(args.color)))
-      nativeView.setProgressBackgroundTintMode(android.graphics.PorterDuff.Mode.XOR)
-    }    
+    if(args.color){
+      var color = android.graphics.Color.parseColor(args.color)
+      var drawable = nativeView.getIndeterminateDrawable()
+      drawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
   }
   
   var params = {
     title: args.title,
     message: args.message,    
-    nativeView: nativeView 
+    nativeView: nativeView,
+    titleColor: args.titleColor,
+    textColor: args.textColor,
   }
 
   if(args.cancelable)
@@ -153,68 +159,6 @@ exports.capitalize = function(text) {
   return text.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 };
 
-
-exports.getSdCard = function(){
-  /*
-    // Final set of paths
-    var rv = []
-    // Primary physical SD-CARD (not emulated)
-    var rawExternalStorage =  java.lang.System.getenv("EXTERNAL_STORAGE")
-    // All Secondary SD-CARDs (all exclude primary) separated by ":"
-    var rawSecondaryStoragesStr =    java.lang.System.getenv("SECONDARY_STORAGE")
-    // Primary emulated SD-CARD
-    var rawEmulatedStorageTarget =   java.lang.System.getenv("EMULATED_STORAGE_TARGET")
-
-    if(android.text.TextUtils.isEmpty(rawEmulatedStorageTarget))
-    {
-        // Device has physical external storage; use plain paths.
-        if(android.text.TextUtils.isEmpty(rawExternalStorage)){
-            // EXTERNAL_STORAGE undefined; falling back to default.
-            rv.push("/storage/sdcard0");
-        }else{
-            rv.push(rawExternalStorage);
-        }
-    }else{
-        // Device has emulated storage; external storage paths should have
-        // userId burned into them.
-        var rawUserId;
-        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR1){
-            rawUserId = ""
-        }else{
-            var path = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()
-            var folders = DIR_SEPORATOR.split(path)
-            var lastFolder = folders[folders.length - 1]
-            var isDigit = false
-            try{
-                java.lang.Integer.valueOf(lastFolder)
-                isDigit = true
-            }catch(ignored){
-            }
-
-            rawUserId = isDigit ? lastFolder : ""
-        }
-        // /storage/emulated/0[1,2,...]
-        if(android.text.TextUtils.isEmpty(rawUserId)){
-            rv.push(rawEmulatedStorageTarget);
-        }else{
-            rv.push(rawEmulatedStorageTarget + java.io.File.separator + rawUserId);
-        }
-    }
-
-    // Add all secondary storages
-    if(!android.text.TextUtils.isEmpty(rawSecondaryStoragesStr))
-    {
-        // All Secondary SD-CARDs splited into array
-        var rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
-        for(var i = 0; i < rawSecondaryStorages.length; i++)
-          rv.push(rawSecondaryStorages[i])
-    }
-
-    return rv
-    */
-}
-
-
 exports.getExtraKey = function(key){
   var activity = application.android.foregroundActivity || application.android.startActivity  
 
@@ -228,4 +172,52 @@ exports.getExtraKey = function(key){
   }
 
   return undefined    
+}
+
+
+// Event handler for Page "loaded" event attached in main-page.xml
+exports.transparentNav = function() {
+    // Get the event sender
+    if (application.android && platform.device.sdkVersion >= '21') {
+        var window = application.android.startActivity.getWindow();
+        // set the status bar to Color.Transparent
+        window.setStatusBarColor(0x000000);
+ 
+        var decorView = window.getDecorView();
+        decorView.setSystemUiVisibility(
+              android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            | android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            | android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+            | android.view.View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+            | android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+ 
+    //var statusHeight = getStatusBarHeight();
+    // // Need to add some padding to whatever your first View(widget)
+    // var actionbar = page.actionBar._toolbar;
+    // // Set the padding to match the Status Bar height
+    // actionbar.setPadding(0, statusHeight, 0, 0);
+ 
+     //var lab = page.getViewById('myLabel').android;
+     //lab.setPadding(0, statusHeight, 0, 0);
+ 
+} 
+ 
+// A method to find height of the status bar
+exports.getStatusBarHeight = function() {
+    var result = 0;
+    var res = application.android.currentContext.getResources()
+    var resourceId = res.getIdentifier('status_bar_height', 'dimen', 'android');
+    if (resourceId && resourceId > 0) {
+        result = res.getDimensionPixelSize(resourceId);
+    }
+    return result;
+}
+
+exports.navColor = function(colorArg){
+  if (application.android) {
+    var window = application.android.startActivity.getWindow();
+    window.setNavigationBarColor(new color.Color(colorArg).android);  
+  }
 }
