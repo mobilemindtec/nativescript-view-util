@@ -177,6 +177,9 @@ exports.getExtraKey = function(key){
 
 // Event handler for Page "loaded" event attached in main-page.xml
 exports.transparentNav = function() {
+
+
+
     // Get the event sender
     if (application.android && platform.device.sdkVersion >= '21') {
         var window = application.android.startActivity.getWindow();
@@ -184,6 +187,7 @@ exports.transparentNav = function() {
         window.setStatusBarColor(0x000000);
  
         var decorView = window.getDecorView();
+
         decorView.setSystemUiVisibility(
               android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             | android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -203,6 +207,22 @@ exports.transparentNav = function() {
      //lab.setPadding(0, statusHeight, 0, 0);
  
 } 
+
+exports.normalNav = function(args){
+  if (application.android && platform.device.sdkVersion >= '21') {
+      var window = application.android.startActivity.getWindow();
+      // set the status bar to Color.Transparent
+
+      if(args && args.color)
+        window.setStatusBarColor(new color.Color(args.color).android);
+
+      var decorView = window.getDecorView();
+      decorView.setSystemUiVisibility(
+            android.view.View.SYSTEM_UI_FLAG_VISIBLE
+          );
+    }
+
+}
  
 // A method to find height of the status bar
 exports.getStatusBarHeight = function() {
