@@ -1,4 +1,4 @@
-var ViewUtil = require('./nativescript-view-util')
+var ViewUtil = require('nativescript-view-util')
 var observableModule = require("data/observable");
 
 var viewModel = new observableModule.Observable({   

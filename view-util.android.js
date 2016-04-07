@@ -1,9 +1,7 @@
 var common = require("./view-util-common")
 var application = require("application");
 var frameModule = require("ui/frame");
-var dialogsModule = require("nativescript-dialog");
 var platform = require("platform");
-var color = require("color");
 
 var keyboardIsOpened
 
@@ -21,8 +19,6 @@ exports.addViewIcon = function(view, position, iconName){
       view.android.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
     }else if(position == 'top'){
       view.android.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
-    }else if(position === 'bottom'){
-      view.android.setCompoundDrawablesWithIntrinsicBounds(null, null, null, bottom)
     }
 
     // setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
