@@ -1,37 +1,56 @@
-var _isInit = false;
-var mCallbackManager;
-var loginManager;
-function init() {
-    loginManager = new FBSDKLoginManager();
-    loginManager.loginBehavior = 2;
-    if (loginManager) {
-        _isInit = true;
-        return true;
-    }
-    else {
-        return false;
-    }
+var common = require("./view-util-common")
+var application = require("application");
+var frameModule = require("ui/frame");
+var dialogsModule = require("nativescript-dialog");
+var platform = require("platform");
+var color = require("color");
+
+var keyboardIsOpened
+
+global.moduleMerge(common, exports);
+
+exports.addViewIcon = function(view, position, iconName){
 }
-exports.init = init;
-function registerCallback(successCallback, cancelCallback, failCallback) {
-    if (_isInit) {
-        mCallbackManager = function (result, error) {
-            if (!result.isCancelled && result.token) {
-                successCallback(result);
-            }
-            else if (result.isCancelled) {
-                cancelCallback();
-            }
-            else {
-                failCallback(error);
-            }
-        };
-    }
+
+exports.buttonRoundedAll = function(view, hexaColor, raduis){
+  buttonRounded(view, hexaColor, raduis, raduis, raduis, raduis)
 }
-exports.registerCallback = registerCallback;
-function logInWithPublishPermissions(permissions) {
-    if (_isInit) {
-        loginManager.logInWithPublishPermissionsHandler(permissions, mCallbackManager);
-    }
+
+function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, bottom_left){    
 }
-exports.logInWithPublishPermissions = logInWithPublishPermissions;
+
+exports.buttonRounded = buttonRounded;
+
+exports.addTextChangeListener = function(textView, textChangeCallback){
+    textField.addTargetAction(null, function(textField){cd 
+      textChangeCallback(textField.text)
+    })
+}
+
+var _onGlobalLayoutListener
+var _onGlobalLayoutListenerView
+
+exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
+
+}
+
+function removeKeyboardChangeListener(){
+}
+
+exports.removeKeyboardChangeListener = removeKeyboardChangeListener;
+
+exports.getExtraKey = function(key){
+
+  return undefined    
+}
+
+exports.transparentNav = function() {
+ 
+} 
+ 
+exports.getStatusBarHeight = function() {
+    return 0;
+}
+
+exports.navColor = function(colorArg){
+}

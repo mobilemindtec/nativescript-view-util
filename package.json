@@ -1,3 +1,13 @@
 { "name" : "nativescript-view-util",
   "main" : "view-util.js",
-  "version": "0.0.1" }
+  "version": "0.0.1",
+  "nativescript": {
+    "platforms": {
+      "ios": "1.7.0",
+    "android": "1.7.0"
+    }
+  },
+  "dependencies": {
+  	"nativescript-dialog": "https://github.com/mobilemindtec/nativescript-dialog.git"
+  } 
+}

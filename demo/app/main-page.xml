@@ -1,0 +1,15 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+  <StackLayout>
+    <Label text="NativeScript View Util" class="title"/>
+    
+    <TextField id='textSearch' hint="Search.." />
+
+    <Button id='btnLoading' text="Show loadding..." tap="onLoading"/>
+
+    <Button id='btnRounded' text="Rounded button" />
+    <Button id='btnLeftIcon' text="Left icon button" />
+    <Button id='btnRightIcon' text="Right icon button" />
+    
+    <Label text="{{ message }}" class="message" textWrap="true"/>
+  </StackLayout>
+</Page>

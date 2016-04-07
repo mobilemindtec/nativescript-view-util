@@ -1,0 +1,18 @@
+TextField{
+	background-color: #FFFFFF;
+	padding: 10;
+	margin: 0 10;
+}
+
+Page{
+	background-color: #008B8B;
+}
+
+Button{
+	margin-top: 30;
+	color: #FFFFFF;
+	font-size: 18;
+	horizontal-align: center;	
+	background-color: #483D8B;
+	padding: 10;
+}
