@@ -1,7 +1,11 @@
 # nativescript-view-util
 
 View Toos
-./demo -> demo aoo
+./demo -> demo ao
+
+## Dependency
+
+"nativescript-dialog": "https://github.com/mobilemindtec/nativescript-dialog.git"
 
 ## Features
 
