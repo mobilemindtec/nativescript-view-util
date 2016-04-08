@@ -6,7 +6,7 @@
 		}
 	},
 	"dependencies": {
-		
+		"nativescript-dialog": "https://github.com/mobilemindtec/nativescript-dialog.git",
 		"nativescript-view-util": "file:../../nativescript-view-util",
 		"tns-core-modules": "1.7.1"
 	}
