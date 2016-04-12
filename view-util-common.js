@@ -2,7 +2,8 @@ var application = require("application");
 var frameModule = require("ui/frame");
 var dialogsModule = require("nativescript-dialog");
 var platform = require("platform");
-var color = require("color");
+var colorModule = require("color");
+var Color = colorModule.Color;
 
 var keyboardIsOpened
 
@@ -19,9 +20,9 @@ exports.progressOpen = function(args){
     nativeView.setIndeterminate(true);
 
     if(args.color){
-      var color = android.graphics.Color.parseColor(args.color)
+      var color = new Color(args.color)
       var drawable = nativeView.getIndeterminateDrawable()
-      drawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+      drawable.setColorFilter(color.android, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
   }
   

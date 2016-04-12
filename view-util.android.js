@@ -2,6 +2,8 @@ var common = require("./view-util-common")
 var application = require("application");
 var frameModule = require("ui/frame");
 var platform = require("platform");
+var colorModule = require("color");
+var Color = colorModule.Color;
 
 var keyboardIsOpened
 
@@ -33,8 +35,8 @@ function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, botto
   var shape =  new android.graphics.drawable.GradientDrawable();
 
   shape.setCornerRadii([top_left, top_left, top_right, top_right, bottom_right, bottom_right, bottom_left, bottom_left]);  
-  var color = android.graphics.Color.parseColor(hexaColor)  
-  shape.setColor(color);
+  var color = new Color(hexaColor)  
+  shape.setColor(color.android);
   view.android.setBackground(shape)
 }
 
@@ -165,7 +167,7 @@ exports.normalNav = function(args){
       // set the status bar to Color.Transparent
 
       if(args && args.color)
-        window.setStatusBarColor(new color.Color(args.color).android);
+        window.setStatusBarColor(new Color(args.color).android);
 
       var decorView = window.getDecorView();
       decorView.setSystemUiVisibility(
@@ -189,6 +191,6 @@ exports.getStatusBarHeight = function() {
 exports.navColor = function(colorArg){
   if (application.android) {
     var window = application.android.startActivity.getWindow();
-    window.setNavigationBarColor(new color.Color(colorArg).android);  
+    window.setNavigationBarColor(new Color(colorArg).android);  
   }
 }
