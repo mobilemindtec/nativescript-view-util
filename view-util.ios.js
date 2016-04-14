@@ -57,6 +57,10 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
     textView.ios.addTargetActionForControlEvents(new MyChangeListener(), "onChange", UIControlEventEditingChanged)
 }
 
+exports.removeTextChangeListener = function(textView, textWatcher){
+
+}
+
 var _onGlobalLayoutListener
 var _onGlobalLayoutListenerView
 
@@ -83,4 +87,17 @@ exports.getStatusBarHeight = function() {
 }
 
 exports.navColor = function(colorArg){
+  var navigationBar = frameModule.topmost().ios.controller.navigationBar;
+  navigationBar.barTintColor = new Color(colorArg).ios
+  navigationBar.titleTextAttributes = new NSDictionary([UIColor.whiteColor()], [NSForegroundColorAttributeName]);
+  navigationBar.barStyle = 1;
+  navigationBar.tintColor = UIColor.whiteColor();
+}
+
+
+exports.softInputAdjustPan = function(){
+}
+
+
+exports.forceRemoveFocus = function(layout, editText){
 }

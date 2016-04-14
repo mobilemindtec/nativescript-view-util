@@ -42,25 +42,34 @@ function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, botto
 
 exports.buttonRounded = buttonRounded;
 
+
 exports.addTextChangeListener = function(textView, textChangeCallback){
 
-   textView.android.addTextChangedListener(new android.text.TextWatcher({
+  var textWatcher = new android.text.TextWatcher({
 
-      onTextChanged: function(charSequence, start, before, count) {
+    onTextChanged: function(charSequence, start, before, count) {
 
-        textChangeCallback(charSequence.toString())
+      textChangeCallback(charSequence.toString())
 
-      },
+    },
 
-      beforeTextChanged: function(charSequence, start, count, after) {
+    beforeTextChanged: function(charSequence, start, count, after) {
 
-      },
+    },
 
-      afterTextChanged: function(editable) {
+    afterTextChanged: function(editable) {
 
-      }
+    }
 
-    }));
+  })
+
+   textView.android.addTextChangedListener(textWatcher);
+
+   return textWatcher
+}
+
+exports.removeTextChangeListener = function(textView, textWatcher){
+  textView.android.removeTextChangedListener(textWatcher)
 }
 
 var _onGlobalLayoutListener
@@ -170,9 +179,7 @@ exports.normalNav = function(args){
         window.setStatusBarColor(new Color(args.color).android);
 
       var decorView = window.getDecorView();
-      decorView.setSystemUiVisibility(
-            android.view.View.SYSTEM_UI_FLAG_VISIBLE
-          );
+      decorView.setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_VISIBLE);
     }
 
 }
@@ -193,4 +200,18 @@ exports.navColor = function(colorArg){
     var window = application.android.startActivity.getWindow();
     window.setNavigationBarColor(new Color(colorArg).android);  
   }
+}
+
+exports.softInputAdjustPan = function(){
+  var act = application.android.foregroundActivity || application.android.startActivity;
+  act.getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);  
+}
+
+
+// Prevent the first textfield from receiving focus on Android
+// See http://stackoverflow.com/questions/5056734/android-force-edittext-to-remove-focus
+exports.forceRemoveFocus = function(layout, editText){
+  layout.android.setFocusableInTouchMode(true);
+  layout.android.setFocusable(true); 
+  editText.android.clearFocus();     
 }
