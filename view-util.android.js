@@ -45,20 +45,30 @@ exports.buttonRounded = buttonRounded;
 
 exports.addTextChangeListener = function(textView, textChangeCallback){
 
-  var textWatcher = new android.text.TextWatcher({
+  var weakRef = new WeakRef(new android.text.TextWatcher({
 
     onTextChanged: function(charSequence, start, before, count) {
-
       textChangeCallback(charSequence.toString())
-
     },
 
     beforeTextChanged: function(charSequence, start, count, after) {
-
     },
 
     afterTextChanged: function(editable) {
+    }
 
+  }))
+
+  var textWatcher = new android.text.TextWatcher({
+
+    onTextChanged: function(charSequence, start, before, count) {
+      weakRef.onTextChanged(charSequence, start, before, count)
+    },
+
+    beforeTextChanged: function(charSequence, start, count, after) {
+    },
+
+    afterTextChanged: function(editable) {
     }
 
   })
