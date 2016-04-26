@@ -42,10 +42,9 @@ function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, botto
 
 exports.buttonRounded = buttonRounded;
 
-
 exports.addTextChangeListener = function(textView, textChangeCallback){
 
-  var weakRef = new WeakRef(new android.text.TextWatcher({
+  var weak = new java.lang.ref.WeakReference(new android.text.TextWatcher({
 
     onTextChanged: function(charSequence, start, before, count) {
       textChangeCallback(charSequence.toString())
@@ -62,7 +61,10 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
   var textWatcher = new android.text.TextWatcher({
 
     onTextChanged: function(charSequence, start, before, count) {
-      weakRef.onTextChanged(charSequence, start, before, count)
+      if(weak.get())
+        weak.get().onTextChanged(charSequence, start, before, count)
+      else
+        console.log("weak ref is null " + weak.get())
     },
 
     beforeTextChanged: function(charSequence, start, count, after) {
