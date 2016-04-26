@@ -66,6 +66,7 @@ var _onGlobalLayoutListenerView
 
 exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
 
+  return {}
 }
 
 function removeKeyboardChangeListener(){
