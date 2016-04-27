@@ -54,19 +54,20 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
 	    }
 	})
 	
-    textView.ios.addTargetActionForControlEvents(new MyChangeListener(), "onChange", UIControlEventEditingChanged)
+	var textWatcher = new MyChangeListener()
+    textView.ios.addTargetActionForControlEvents(textWatcher, "onChange", UIControlEventEditingChanged)
+
+    return { textWatcher: textWatcher, weakref: null }
 }
 
 exports.removeTextChangeListener = function(textView, textWatcher){
-
+	textView.ios.removeTargetActionForControlEvents(textWatcher, "onChange", UIControlEventEditingChanged)
 }
 
 var _onGlobalLayoutListener
 var _onGlobalLayoutListenerView
 
 exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
-
-  return {}
 }
 
 function removeKeyboardChangeListener(){
