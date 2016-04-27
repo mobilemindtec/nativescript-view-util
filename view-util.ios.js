@@ -57,7 +57,7 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
 	var textWatcher = new MyChangeListener()
     textView.ios.addTargetActionForControlEvents(textWatcher, "onChange", UIControlEventEditingChanged)
 
-    return { textWatcher: textWatcher, weakref: null }
+  return textWatcher
 }
 
 exports.removeTextChangeListener = function(textView, textWatcher){
@@ -68,6 +68,10 @@ var _onGlobalLayoutListener
 var _onGlobalLayoutListenerView
 
 exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
+}
+
+exports.keyboardHidden = function(){
+
 }
 
 function removeKeyboardChangeListener(){

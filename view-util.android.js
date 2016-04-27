@@ -42,11 +42,13 @@ function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, botto
 
 exports.buttonRounded = buttonRounded;
 
-exports.addTextChangeListener = function(textView, textChangeCallback){
 
-  var weak = new java.lang.ref.WeakReference(new android.text.TextWatcher({
+exports.addTextChangeListener = function(textView, textChangeCallback){
+  
+  var textWatcher = new android.text.TextWatcher({
 
     onTextChanged: function(charSequence, start, before, count) {
+
       textChangeCallback(charSequence.toString())
     },
 
@@ -54,33 +56,16 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
     },
 
     afterTextChanged: function(editable) {
-    }
-
-  }))
-
-  var textWatcher = new android.text.TextWatcher({
-
-    onTextChanged: function(charSequence, start, before, count) {
-      if(weak.get())
-        weak.get().onTextChanged(charSequence, start, before, count)
-      else
-        console.log("weak ref is null " + weak.get())
-    },
-
-    beforeTextChanged: function(charSequence, start, count, after) {
-    },
-
-    afterTextChanged: function(editable) {
-    }
+    }    
 
   })
 
-   textView.android.addTextChangedListener(textWatcher);
+  textView.android.addTextChangedListener(textWatcher);
 
-   return textWatcher
+  return textWatcher
 }
 
-exports.removeTextChangeListener = function(textView, textWatcher){
+exports.removeTextChangeListener = function(textView, textWatcher){  
   textView.android.removeTextChangedListener(textWatcher)
 }
 
@@ -108,6 +93,17 @@ exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKey
     removeKeyboardChangeListener()
   }, view);
 
+}
+
+exports.keyboardHidden = function(){
+  var activity = application.android.foregroundActivity || application.android.startActivity  
+  var view = activity.getCurrentFocus();
+  var imm = activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+  
+  if (!view) 
+      view = new android.view.View(activity);
+    
+  imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 }
 
 function removeKeyboardChangeListener(){
