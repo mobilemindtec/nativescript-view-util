@@ -71,7 +71,8 @@ exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKey
 }
 
 exports.keyboardHidden = function(){
-
+	var controller = frameModule.topmost().ios.controller;
+	controller.view.endEditing(true);
 }
 
 function removeKeyboardChangeListener(){
