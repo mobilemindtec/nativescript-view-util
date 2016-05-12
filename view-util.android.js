@@ -106,6 +106,12 @@ exports.keyboardHidden = function(){
   imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 }
 
+exports.keyboardShow = function(){
+  var activity = application.android.foregroundActivity || application.android.startActivity  
+  var imm = activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+  imm.toggleSoftInput(0, android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS);
+}
+
 function removeKeyboardChangeListener(){
   if(_onGlobalLayoutListenerView && _onGlobalLayoutListenerView.android){
     if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
