@@ -75,6 +75,11 @@ exports.keyboardHidden = function(){
 	controller.view.endEditing(true);
 }
 
+exports.keyboardShow = function(){
+	var controller = frameModule.topmost().ios.controller;
+	controller.view.endEditing(true);	
+}
+
 function removeKeyboardChangeListener(){
 }
 
