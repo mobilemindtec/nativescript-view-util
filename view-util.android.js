@@ -106,12 +106,6 @@ exports.keyboardHidden = function(){
   imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 }
 
-exports.keyboardShow = function(){
-  var activity = application.android.foregroundActivity || application.android.startActivity  
-  var imm = activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
-  imm.toggleSoftInput(0, android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS);
-}
-
 function removeKeyboardChangeListener(){
   if(_onGlobalLayoutListenerView && _onGlobalLayoutListenerView.android){
     if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -229,3 +223,35 @@ exports.forceRemoveFocus = function(layout, editText){
   layout.android.setFocusable(true); 
   editText.android.clearFocus();     
 }
+
+
+var DensityResources = {
+  LOW: 0,
+  MEDIUM: 1,
+  HIGH: 2,
+  XHIGH: 3,
+  XXHIGH: 4,
+  XXXHIGH: 5,
+}
+exports.DensityResources = DensityResources
+
+exports.getDensityResources = function(){
+  var act = application.android.foregroundActivity || application.android.startActivity;
+  var density= act.getResources().getDisplayMetrics().densityDpi;
+
+  switch(density){
+    case android.util.DisplayMetrics.DENSITY_LOW:
+      return DensityResources.LOW    
+    case android.util.DisplayMetrics.DENSITY_MEDIUM:
+      return DensityResources.MEDIUM      
+    case android.util.DisplayMetrics.DENSITY_HIGH:
+      return DensityResources.HIGH
+    case android.util.DisplayMetrics.DENSITY_XHIGH:
+      return DensityResources.XHIGH  
+    case android.util.DisplayMetrics.DENSITY_XXHIGH:
+      return DensityResources.XXHIGH
+    case android.util.DisplayMetrics.DENSITY_XXXHIGH:
+      return DensityResources.XXXHIGH
+  }  
+}
+
