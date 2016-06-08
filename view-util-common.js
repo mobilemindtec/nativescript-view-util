@@ -32,6 +32,7 @@ exports.progressOpen = function(args){
     nativeView: nativeView,
     titleColor: args.titleColor,
     textColor: args.textColor,
+    cancelable: args.cancelable
   }
 
   if(args.cancelable)
