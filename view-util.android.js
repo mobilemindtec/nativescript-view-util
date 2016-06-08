@@ -225,15 +225,6 @@ exports.forceRemoveFocus = function(layout, editText){
 }
 
 
-var DensityResources = {
-  LOW: 0,
-  MEDIUM: 1,
-  HIGH: 2,
-  XHIGH: 3,
-  XXHIGH: 4,
-  XXXHIGH: 5,
-}
-exports.DensityResources = DensityResources
 
 exports.getDensityResources = function(){
   var act = application.android.foregroundActivity || application.android.startActivity;
