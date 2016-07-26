@@ -68,6 +68,27 @@ var _onGlobalLayoutListener
 var _onGlobalLayoutListenerView
 
 exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
+
+	MyKeyboardListener = NSObject.extend({
+		onShow: function(){
+			onKeyboardOpenCallback()
+		},		
+		onHide: function(){
+			onKeyboardCloseCallback()
+		}		
+	}, {
+	    name: "MyKeyboardListener",
+	    exposedMethods: {
+	        // Declare the signature of the aboutTap. We can not infer it, since it is not inherited from base class or protocol.
+	        onShow: { returns: interop.types.void, params: [ ] },
+	        onHide: { returns: interop.types.void, params: [ ] }
+	    }
+	})
+
+	var keyboardListener = new MyKeyboardListener()
+
+	NSNotificationCenter.defaultCenter().addObserverSelectorNameObject(keyboardListener, 'onShow', UIKeyboardDidShowNotification, null)
+	NSNotificationCenter.defaultCenter().addObserverSelectorNameObject(keyboardListener, 'onHide', UIKeyboardDidHideNotification, null)
 }
 
 exports.keyboardHidden = function(){
