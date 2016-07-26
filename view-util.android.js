@@ -225,15 +225,6 @@ exports.forceRemoveFocus = function(layout, editText){
 }
 
 
-var DensityResources = {
-  LOW: 0,
-  MEDIUM: 1,
-  HIGH: 2,
-  XHIGH: 3,
-  XXHIGH: 4,
-  XXXHIGH: 5,
-}
-exports.DensityResources = DensityResources
 
 exports.getDensityResources = function(){
   var act = application.android.foregroundActivity || application.android.startActivity;
@@ -241,17 +232,17 @@ exports.getDensityResources = function(){
 
   switch(density){
     case android.util.DisplayMetrics.DENSITY_LOW:
-      return DensityResources.LOW    
+      return common.DensityResources.LOW    
     case android.util.DisplayMetrics.DENSITY_MEDIUM:
-      return DensityResources.MEDIUM      
+      return common.DensityResources.MEDIUM      
     case android.util.DisplayMetrics.DENSITY_HIGH:
-      return DensityResources.HIGH
+      return common.DensityResources.HIGH
     case android.util.DisplayMetrics.DENSITY_XHIGH:
-      return DensityResources.XHIGH  
+      return common.DensityResources.XHIGH  
     case android.util.DisplayMetrics.DENSITY_XXHIGH:
-      return DensityResources.XXHIGH
+      return common.DensityResources.XXHIGH
     case android.util.DisplayMetrics.DENSITY_XXXHIGH:
-      return DensityResources.XXXHIGH
+      return common.DensityResources.XXXHIGH
   }  
 }
 
