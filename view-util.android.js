@@ -194,6 +194,7 @@ exports.normalNav = function(args){
  
 // A method to find height of the status bar
 exports.getStatusBarHeight = function() {
+  if (application.android && platform.device.sdkVersion >= '21') {
     var result = 0;
     var res = application.android.currentContext.getResources()
     var resourceId = res.getIdentifier('status_bar_height', 'dimen', 'android');
@@ -201,10 +202,11 @@ exports.getStatusBarHeight = function() {
         result = res.getDimensionPixelSize(resourceId);
     }
     return result;
+  }
 }
 
 exports.navColor = function(colorArg){
-  if (application.android) {
+  if (application.android && platform.device.sdkVersion >= '21') {
     var window = application.android.startActivity.getWindow();
     window.setNavigationBarColor(new Color(colorArg).android);  
   }
