@@ -60,13 +60,15 @@ exports.addTextChangeListener = function(textView, textChangeCallback){
 
   })
 
-  textView.android.addTextChangedListener(textWatcher);
+  if(textView && textView.android)
+    textView.android.addTextChangedListener(textWatcher);
 
   return textWatcher
 }
 
 exports.removeTextChangeListener = function(textView, textWatcher){  
-  textView.android.removeTextChangedListener(textWatcher)
+  if(textView && textView.android)
+    textView.android.removeTextChangedListener(textWatcher)
 }
 
 var _onGlobalLayoutListener
