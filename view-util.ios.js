@@ -134,3 +134,37 @@ exports.softInputAdjustPan = function(){
 
 exports.forceRemoveFocus = function(layout, editText){
 }
+
+exports.getDensityResources = function(){
+
+   	var width = platform.screen.mainScreen.widthPixels / platform.screen.mainScreen.scale
+    var height = platform.screen.mainScreen.heightPixels / platform.screen.mainScreen.scale
+    
+    //http://ios-resolution.com/
+    switch(width){
+      case 414: // IPhone 6 Plus
+        return common.DensityResources.HIGH        
+      case 1242: // IPhone 6 Plus Retina
+        return common.DensityResources.XXXHIGH
+      case 375: // IPhone 6
+        return common.DensityResources.HIGH
+      case 750: // IPhone 6 Retina
+        return common.DensityResources.XXHIGH
+      case 320: 
+        if(height == 568) // iPhone 5, 5c, 5s, iPod touch 5th gen
+          return common.DensityResources.HIGH
+        else if(height == 480) // iPhone 1st, 3G, 3GS, 4, 3S, 5, iPod touch 1st-4th gen
+          return common.DensityResources.XXHIGH
+      case 640:
+        if(height == 1136) // iPhone 5, 5c, 5s, iPod touch 5th gen Retina
+          return common.DensityResources.HIGH
+        else if(height == 960) // iPhone 1st, 3G, 3GS, 4, 3S, 5, iPod touch 1st-4th gen Retina
+          return common.DensityResources.XXHIGH
+      case 768: // iPad (1st gen, 2, 3rd gen, 4th gen) - iPad mini
+        return common.DensityResources.HIGH
+      case 1536: // iPad (1st gen, 2, 3rd gen, 4th gen) Retina - iPad mini
+        return common.DensityResources.XXHIGH        
+    }  
+
+    return common.DensityResources.HIGH
+}
