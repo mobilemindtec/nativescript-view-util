@@ -14,6 +14,9 @@ exports.addViewIcon = function(view, position, iconName){
     var icon = UIImage.imageNamed(iconName)
 
     if(view.ios instanceof UIButton){
+
+      console.log("add icon UIButton ")
+
       var button = view.ios
       button.titleLabel.textAlignment = NSTextAlignmentCenter
       button.setImageForState(icon, UIControlStateNormal)
@@ -29,6 +32,8 @@ exports.addViewIcon = function(view, position, iconName){
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
       }
     }else if(view.ios instanceof UILabel){
+
+      console.log("add icon UILabel ")
 
       var label = view.ios
       var attachment = NSTextAttachment.alloc().init()
@@ -46,6 +51,20 @@ exports.addViewIcon = function(view, position, iconName){
       }
 
       label.attributedText = textAttr
+    }else if(view.ios instanceof UITextField){
+      var textField = view.ios
+
+      console.log("add icon UITextField ")
+
+      if(position == 'left'){
+        textField.leftViewMode = UITextFieldViewModeAlways
+        textField.leftView = UIImageView.alloc().initWithImage(icon)
+      }else {
+        textField.rightViewMode = UITextFieldViewModeAlways
+        textField.rightView = UIImageView.alloc().initWithImage(icon)
+      }
+    }else{
+      console.log("not icon view.. type not supported ")
     }
 }
 
