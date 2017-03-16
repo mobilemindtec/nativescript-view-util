@@ -147,6 +147,9 @@ exports.navColor = function(colorArg){
   navigationBar.tintColor = UIColor.whiteColor();
 }
 
+exports.normalNav = function(){
+
+}
 
 exports.softInputAdjustPan = function(){
 }
