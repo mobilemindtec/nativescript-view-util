@@ -4,10 +4,10 @@ var frameModule = require("ui/frame");
 var platform = require("platform");
 var colorModule = require("color");
 var Color = colorModule.Color;
-
+var utils = require("utils/utils")
 
 var keyboardIsOpened
-
+var whiteColor = utils.ios.getter(UIColor, UIColor.whiteColor)
 global.moduleMerge(common, exports);
 
 exports.addViewIcon = function(view, position, iconName){
@@ -122,9 +122,9 @@ exports.getStatusBarHeight = function() {
 exports.navColor = function(colorArg){
   var navigationBar = frameModule.topmost().ios.controller.navigationBar;
   navigationBar.barTintColor = new Color(colorArg).ios
-  navigationBar.titleTextAttributes = new NSDictionary([UIColor.whiteColor()], [NSForegroundColorAttributeName]);
+  navigationBar.titleTextAttributes = new NSDictionary([whiteColor], [NSForegroundColorAttributeName]);
   navigationBar.barStyle = 1;
-  navigationBar.tintColor = UIColor.whiteColor();
+  navigationBar.tintColor = whiteColor;
 }
 
 

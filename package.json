@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "nativescript": {
     "platforms": {
-      "ios": "3.3.0",
-      "android": "2.3.0"
+      "ios": "3.0.0",
+      "android": "3.0.0"
     }
-  },
+  } ,
   "dependencies": {
   	"nativescript-dialog": "https://github.com/mobilemindtec/nativescript-dialog.git"
   } 
