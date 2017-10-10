@@ -1,6 +1,7 @@
 var common = require("./view-util-common")
 var application = require("application");
 var frameModule = require("ui/frame");
+var utils = require("utils/utils");
 var platform = require("platform");
 var colorModule = require("color");
 var Color = colorModule.Color;
@@ -231,8 +232,8 @@ exports.forceRemoveFocus = function(layout, editText){
 
 
 exports.getDensityResources = function(){
-  var act = application.android.foregroundActivity || application.android.startActivity;
-  var density= act.getResources().getDisplayMetrics().densityDpi;
+  
+  var density= utils.layout.getDisplayMetrics().densityDpi;
 
   switch(density){
     case android.util.DisplayMetrics.DENSITY_LOW:
