@@ -6,8 +6,5 @@
       "ios": "1.7.0",
     "android": "1.7.0"
     }
-  },
-  "dependencies": {
-  	"nativescript-dialog": "https://github.com/mobilemindtec/nativescript-dialog.git"
-  } 
+  }
 }
