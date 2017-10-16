@@ -6,12 +6,10 @@
 
     <Label text="{{ message }}" class="message" textWrap="true"/>
     
-    <Button id='btnLoading' text="Show loadding..." tap="onLoading"/>
-
     <Button id='btnRounded' text="Rounded button" />
     <Button id='btnLeftIcon' text="Left icon button" />
     <Button id='btnRightIcon' text="Right icon button" />
-    
+      
     
   </StackLayout>
 </Page>

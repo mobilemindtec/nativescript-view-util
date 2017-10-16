@@ -29,7 +29,7 @@ exports.addViewIcon = function(view, position, iconName){
         button.transform = CGAffineTransformMakeScale(-1.0, 1.0);
         button.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
         button.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
       }
     }else if(view.ios instanceof UILabel){
 
@@ -74,7 +74,7 @@ exports.buttonRoundedAll = function(view, hexaColor, raduis){
 
 function buttonRounded(view, hexaColor, top_left, top_right, bottom_right, bottom_left){
     view.ios.clipsToBounds = true;
-    view.ios.layer.cornerRadius = top_right;
+    view.ios.layer.cornerRadius = top_left;
 }
 
 exports.buttonRounded = buttonRounded;
