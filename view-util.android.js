@@ -233,7 +233,7 @@ exports.forceRemoveFocus = function(layout, editText){
 
 exports.getDensityResources = function(){
   
-  var density= utils.layout.getDisplayMetrics().densityDpi;
+  var density= utils.ad.getResources().getDisplayMetrics().densityDpi;
 
   switch(density){
     case android.util.DisplayMetrics.DENSITY_LOW:
