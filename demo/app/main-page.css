@@ -7,12 +7,19 @@ TextField{
 Page{
 	background-color: #008B8B;
 }
-
-Button{
+ 
+Button{ 
 	margin-top: 30;
 	color: #FFFFFF;
 	font-size: 18;
 	horizontal-align: center;	
 	background-color: #483D8B;
 	padding: 10;
+	width: 90%;
+}
+
+.title{
+	text-align: center;
+	margin: 20 0 20 0;
+	color: #fff;
 }
