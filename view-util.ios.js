@@ -20,6 +20,7 @@ exports.addViewIcon = function(view, position, iconName){
       var button = view.ios
       button.titleLabel.textAlignment = NSTextAlignmentCenter
       button.setImageForState(icon, UIControlStateNormal)
+      button.tintColor = whiteColor
       if(position == 'left'){
         button.transform = CGAffineTransformMakeScale(1.0, -1.0);
         button.titleLabel.transform = CGAffineTransformMakeScale(1.0, -1.0);
