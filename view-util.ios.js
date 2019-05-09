@@ -106,26 +106,26 @@ exports.removeTextChangeListener = function(textView, textWatcher){
 
 var _onGlobalLayoutListener
 var _onGlobalLayoutListenerView
+var keyboardListener
+
+MyKeyboardListener = NSObject.extend({
+	onShow: function(){
+		onKeyboardOpenCallback()
+	},
+	onHide: function(){
+		onKeyboardCloseCallback()
+	}
+}, {
+    name: "MyKeyboardListener",
+    exposedMethods: {
+	// Declare the signature of the aboutTap. We can not infer it, since it is not inherited from base class or protocol.
+	onShow: { returns: interop.types.void, params: [ ] },
+	onHide: { returns: interop.types.void, params: [ ] }
+    }
+})
 
 exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKeyboardCloseCallback){
-
-	MyKeyboardListener = NSObject.extend({
-		onShow: function(){
-			onKeyboardOpenCallback()
-		},
-		onHide: function(){
-			onKeyboardCloseCallback()
-		}
-	}, {
-	    name: "MyKeyboardListener",
-	    exposedMethods: {
-	        // Declare the signature of the aboutTap. We can not infer it, since it is not inherited from base class or protocol.
-	        onShow: { returns: interop.types.void, params: [ ] },
-	        onHide: { returns: interop.types.void, params: [ ] }
-	    }
-	})
-
-	var keyboardListener = new MyKeyboardListener()
+	keyboardListener = new MyKeyboardListener()
 	var defaultCenter = utils.ios.getter(NSNotificationCenter, NSNotificationCenter.defaultCenter)
 	console.log("defaultCenter=" + defaultCenter)
 	defaultCenter.addObserverSelectorNameObject(keyboardListener, 'onShow', UIKeyboardDidShowNotification, null)
