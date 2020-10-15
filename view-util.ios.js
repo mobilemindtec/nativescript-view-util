@@ -7,7 +7,7 @@ var Color = colorModule.Color;
 var utils = require("utils/utils")
 
 var keyboardIsOpened
-var whiteColor = utils.ios.getter(UIColor, UIColor.whiteColor)
+var whiteColor = UIColor.whiteColor
 global.moduleMerge(common, exports);
 
 exports.addViewIcon = function(view, position, iconName){
@@ -126,7 +126,7 @@ exports.addKeyboardChangeListener = function(view, onKeyboardOpenCallback, onKey
 	})
 	
 	var keyboardListener = new MyKeyboardListener()
-	var defaultCenter = utils.ios.getter(NSNotificationCenter, NSNotificationCenter.defaultCenter)
+	var defaultCenter = NSNotificationCenter.defaultCenter
 	defaultCenter.addObserverSelectorNameObject(keyboardListener, 'onShow', UIKeyboardDidShowNotification, null)
 	defaultCenter.addObserverSelectorNameObject(keyboardListener, 'onHide', UIKeyboardDidHideNotification, null)
 }
