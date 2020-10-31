@@ -189,6 +189,9 @@ exports.normalNav = function(args){
       if(args && args.color)
         window.setStatusBarColor(new Color(args.color).android);
 
+      window.addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);      
+
       var decorView = window.getDecorView();
       decorView.setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_VISIBLE);
     }
