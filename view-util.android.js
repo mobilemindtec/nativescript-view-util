@@ -1,9 +1,9 @@
-import {* as common} from "./view-util-common"
-import {* as application} from "@nativescript/core/application"
-import {* as frameModule} from "@nativescript/core/ui/frame"
-import {* as utils} from "@nativescript/core/utils/utils"
-import {* as platform} from "@nativescript/core/platform"
-import {* as Color} from "@nativescript/core/color"
+import * as common from "./view-util-common"
+import * as application from "@nativescript/core/application"
+import * as frameModule from "@nativescript/core/ui/frame"
+import * as utils from "@nativescript/core/utils/utils"
+import * as platform from "@nativescript/core/platform"
+import * as Color from "@nativescript/core/color"
 
 export * from "./view-util-common"
 
