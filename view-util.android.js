@@ -1,14 +1,14 @@
-var common = require("./view-util-common")
-var application = require("application");
-var frameModule = require("ui/frame");
-var utils = require("utils/utils");
-var platform = require("platform");
-var colorModule = require("color");
-var Color = colorModule.Color;
+import {* as common} from "./view-util-common"
+import {* as application} from "@nativescript/core/application"
+import {* as frameModule} from "@nativescript/core/ui/frame"
+import {* as utils} from "@nativescript/core/utils/utils"
+import {* as platform} from "@nativescript/core/platform"
+import {* as Color} from "@nativescript/core/color"
+
+export * from "./view-util-common"
 
 var keyboardIsOpened
 
-global.moduleMerge(common, exports);
 
 exports.addViewIcon = function(view, position, iconName){
     

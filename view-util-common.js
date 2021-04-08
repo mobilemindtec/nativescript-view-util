@@ -1,7 +1,7 @@
-var application = require("application");
-var frameModule = require("ui/frame");
-var platform = require("platform");
-var colorModule = require("color");
+var application = require("@nativescript/core/application");
+var frameModule = require("@nativescript/core/ui/frame");
+var platform = require("@nativescript/core/platform");
+var colorModule = require("@nativescript/core/color");
 var Color = colorModule.Color;
 
 var keyboardIsOpened
