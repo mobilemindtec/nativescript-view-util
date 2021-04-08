@@ -9,7 +9,6 @@ export * from "./view-util-common"
 
 var keyboardIsOpened
 var whiteColor = UIColor.whiteColor
-global.moduleMerge(common, exports);
 
 exports.addViewIcon = function(view, position, iconName){
     var icon = UIImage.imageNamed(iconName)
