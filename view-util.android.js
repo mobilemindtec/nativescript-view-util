@@ -5,7 +5,7 @@ var platform = require("@nativescript/core/platform");
 var colorModule = require("@nativescript/core/color");
 var Color = colorModule.Color;
 
-export * from "./view-util-common"
+Object.assign(module.exports, require("./view-util-common"))
 
 var keyboardIsOpened
 
