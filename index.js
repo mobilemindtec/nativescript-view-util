@@ -1,1 +1,1 @@
-export * "./view-util"
+export * from "./view-util"
